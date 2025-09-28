@@ -1,35 +1,106 @@
 ##  🔙 Backpropagation Neural Network for Classification and Regression
 
-This repository demonstrates a neural network implementation of Backpropagation that powers training of nural network for solving both classification and regression problems from scratch.
-This project implements a simple feedforward neural network trained using backpropagation algorithm.
-It supports both:
-Classification (e.g., binary or multi-class)
-Regression (predicting continuous outputs)
-The network is built from scratch without relying on high-level machine learning libraries, giving insight into the inner workings of backpropagation.
+This repository showcases a from-scratch implementation of Backpropagation in a simple feedforward neural network.
+The project demonstrates how backpropagation powers the training process for solving both classification (binary and multi-class) and regression (continuous prediction) problems.
+Built entirely without high-level machine learning libraries, this implementation provides a clear understanding of the inner mechanics of backpropagation and how neural networks learn.
 
 
 ---
 ## 📌 What is Backpropagation?
 
-Backpropagation (short for *backward propagation of errors*) is an algorithm used to minimize the loss function in neural networks by efficiently computing gradients.
+Backpropagation (short for backward propagation of errors) is a fundamental algorithm used in training neural networks. It works by efficiently calculating gradients of the loss function with respect to the model’s parameters, enabling the network to learn by minimizing errors during training.
 
-Key steps:
-1. **Forward Pass** → Compute output of the neural network.flow towords forword direction Input data is passed through the network layer by layer to compute outputs
-2. **Loss Calculation** → Compare predicted vs. actual values.Calculate the difference between predicted and true values.
-3. **Backward Pass** → Apply chain rule to compute gradients.Calculate gradients of the loss w.r.t weights using chain rule.
-4. **Weight Update** → Adjust weights using Gradient Descent. Adjust weights using gradient descent to minimize loss.
+🔑 Key Steps in Backpropagation
+1. **Forward Pass** → Input data flows through the network layer by layer to generate predictions.
+2. **Loss Calculation** → The predicted outputs are compared with the actual values to measure the error.
+3. **Backward Pass** → Using the chain rule, gradients of the loss with respect to each weight are computed.
+4. **Weight Update** → The weights are updated (typically via Gradient Descent) to minimize the error and improve accuracy.
+---
+
+## 🧮 Mathematical Intuition  
+
+A feedforward neural network performs computations in two main phases: **forward pass** and **backward pass**.  
+
+### 1. Forward Pass  
+For a single layer:  
+\[
+z = W x + b
+\]  
+\[
+a = f(z)
+\]  
+
+where:  
+- \(x\) = input vector  
+- \(W\) = weight matrix  
+- \(b\) = bias  
+- \(f(\cdot)\) = activation function  
+- \(a\) = output (activation)  
+
+For multiple layers, the output of one layer becomes the input of the next.  
 
 ---
 
-## 🧮 Mathematical Intuition
+### 2. Loss Function  
+The model’s performance is measured using a **loss function** \(L\):  
 \[
-y = f(Wx + b)
-\]
-Loss function \( L \):  
+L = \frac{1}{N} \sum_{i=1}^{N} \ell(y_i, \hat{y}_i)
+\]  
+
+where:  
+- \(y_i\) = true label  
+- \(\hat{y}_i\) = predicted output  
+- \(\ell\) = error for one sample (e.g., MSE, cross-entropy)  
+
+---
+
+### 3. Backward Pass (Gradients)  
+To optimize, we compute gradients of the loss w.r.t parameters:  
+
+For the output layer:  
 \[
-\frac{\partial L}{\partial W} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial W}
-\]
-This project explains how the **chain rule** is applied layer by layer to update weights.
+\delta^L = \frac{\partial L}{\partial a^L} \cdot f'(z^L)
+\]  
+
+For hidden layers (using chain rule):  
+\[
+\delta^l = \big( (W^{l+1})^T \delta^{l+1} \big) \cdot f'(z^l)
+\]  
+
+where:  
+- \(\delta^l\) = error term for layer \(l\)  
+- \(f'(z^l)\) = derivative of activation function  
+
+Gradients:  
+\[
+\frac{\partial L}{\partial W^l} = \delta^l (a^{l-1})^T
+\]  
+\[
+\frac{\partial L}{\partial b^l} = \delta^l
+\]  
+
+---
+
+### 4. Weight Update (Gradient Descent)  
+Finally, parameters are updated as:  
+\[
+W^l \leftarrow W^l - \eta \frac{\partial L}{\partial W^l}
+\]  
+\[
+b^l \leftarrow b^l - \eta \frac{\partial L}{\partial b^l}
+\]  
+
+where \(\eta\) = learning rate.  
+
+---
+
+⚡ **In summary:**  
+- **Forward Pass** → compute activations  
+- **Loss Calculation** → measure error  
+- **Backward Pass** → propagate errors using chain rule  
+- **Gradient Update** → adjust weights & biases to reduce loss  
+
+
 
 ## 🛠️ Implementation Details
 
